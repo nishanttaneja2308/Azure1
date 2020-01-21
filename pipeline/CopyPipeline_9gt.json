@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy_9gt",
+				"name": "Copy File to Database",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
