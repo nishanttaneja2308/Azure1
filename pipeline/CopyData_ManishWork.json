@@ -1,0 +1,316 @@
+{
+	"name": "CopyData_ManishWork",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_993",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "container-nishant//TextFiles.txt"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.TextFileData"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table dbo.TextFileData"
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "BirthDate",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BirthDate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Age",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Age",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MaritalStatus",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MaritalStatus",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gender",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Gender",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "YearlyIncome",
+									"type": "String"
+								},
+								"sink": {
+									"name": "YearlyIncome",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TotalChildren",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TotalChildren",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ModelName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ModelName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomerKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CustomerKey",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCategoryKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductCategoryKey",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductCategory",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductCategory",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductSubcategoryKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductSubcategoryKey",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductSubcategoryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductSubcategoryName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProductKey",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CommuteDistance",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CommuteDistance",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StateProvinceCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "StateProvinceCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StateProvinceName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "StateProvinceName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CountryRegionCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CountryRegionCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RegionName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RegionName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryKey",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NumberChildrenAtHome",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NumberChildrenAtHome",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Education",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Education",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Occupation",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Occupation",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "HouseOwnerFlag",
+									"type": "String"
+								},
+								"sink": {
+									"name": "HouseOwnerFlag",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NumberCarsOwned",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NumberCarsOwned",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "YearFirstPurchase",
+									"type": "String"
+								},
+								"sink": {
+									"name": "YearFirstPurchase",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_993",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_993",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
