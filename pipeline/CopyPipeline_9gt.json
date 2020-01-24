@@ -307,6 +307,33 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Execute SSIS package1",
+				"type": "ExecuteSSISPackage",
+				"dependsOn": [
+					{
+						"activity": "Copy File to SQL Database",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"packageLocation": {
+						"type": "SSISDB"
+					},
+					"runtime": "x64",
+					"loggingLevel": "Basic"
+				}
 			}
 		],
 		"annotations": []
