@@ -1,5 +1,5 @@
 {
-	"name": "CSV_DataSet",
+	"name": "CSV_DataSet_Demo_Demo",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage",
