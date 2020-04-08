@@ -376,8 +376,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/demo/blobs/demo/",
-					"blobPathEndsWith": "consumers-price-index-December19-index-numbers-csv-tables.csv",
+					"blobPathBeginsWith": "/demo/blobs//demo/consumers-price-index-December19-index-numbers-csv-tables.csv",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
 					"events": [
