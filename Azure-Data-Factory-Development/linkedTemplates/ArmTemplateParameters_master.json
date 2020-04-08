@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Azure-Data-Factory-Development"
+		},
+		"AzureDataLakeStorage_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_properties_typeProperties_url": {
+			"value": "https://azuredatalake2nishant.dfs.core.windows.net"
+		},
+		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"value": "azuresqlserver-nishant.database.windows.net"
+		},
+		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"value": "IBM_ADMIN"
+		},
+		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"value": ""
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

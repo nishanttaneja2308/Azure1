@@ -1,0 +1,358 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "Azure-Data-Factory-Development"
+		},
+		"AzureDataLakeStorage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
+		},
+		"AzureDataLakeStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azuredatalake2nishant.dfs.core.windows.net"
+		},
+		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"type": "string",
+			"defaultValue": "azuresqlserver-nishant.database.windows.net"
+		},
+		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"type": "string",
+			"defaultValue": "IBM_ADMIN"
+		},
+		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"type": "secureString"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Integration-Runtime-SSIS')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "Central US",
+						"nodeSize": "Standard_D8_v3",
+						"numberOfNodes": 2,
+						"maxParallelExecutionsPerNode": 1
+					},
+					"ssisProperties": {
+						"catalogInfo": {
+							"catalogServerEndpoint": "[parameters('Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint')]",
+							"catalogAdminUserName": "[parameters('Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName')]",
+							"catalogAdminPassword": {
+								"type": "SecureString",
+								"value": "[parameters('Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
+							},
+							"catalogPricingTier": "S1"
+						},
+						"edition": "Standard",
+						"licenseType": "BasePrice"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CSV_DataSet_Demo')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@concat('consumers-price-index-',utcnow())",
+							"type": "Expression"
+						},
+						"fileSystem": "demo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Series_reference",
+						"type": "String"
+					},
+					{
+						"name": "Period",
+						"type": "String"
+					},
+					{
+						"name": "Data_value",
+						"type": "String"
+					},
+					{
+						"name": "STATUS",
+						"type": "String"
+					},
+					{
+						"name": "UNITS",
+						"type": "String"
+					},
+					{
+						"name": "Subject",
+						"type": "String"
+					},
+					{
+						"name": "Group",
+						"type": "String"
+					},
+					{
+						"name": "Series_title_1",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CSV_DataSet_Demo_Demo')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "consumers-price-index-December19-index-numbers-csv-tables.csv",
+						"folderPath": "demo",
+						"fileSystem": "demo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Series_reference",
+						"type": "String"
+					},
+					{
+						"name": "Period",
+						"type": "String"
+					},
+					{
+						"name": "Data_value",
+						"type": "String"
+					},
+					{
+						"name": "STATUS",
+						"type": "String"
+					},
+					{
+						"name": "UNITS",
+						"type": "String"
+					},
+					{
+						"name": "Subject",
+						"type": "String"
+					},
+					{
+						"name": "Group",
+						"type": "String"
+					},
+					{
+						"name": "Series_title_1",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Series_reference",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Series_reference",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Period",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Period",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Data_value",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Data_value",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "STATUS",
+											"type": "String"
+										},
+										"sink": {
+											"name": "STATUS",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UNITS",
+											"type": "String"
+										},
+										"sink": {
+											"name": "UNITS",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Subject",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Subject",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Group",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Group",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Series_title_1",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Series_title_1",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "CSV_DataSet_Demo_Demo",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "CSV_DataSet_Demo",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Demo_Demo')]",
+				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Demo')]"
+			]
+		}
+	]
+}
