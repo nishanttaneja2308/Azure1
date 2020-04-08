@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@consumers-price-index_addToTime().csv",
+					"value": "@concat('consumers-price-index-',utcnow())",
 					"type": "Expression"
 				},
 				"fileSystem": "demo"
