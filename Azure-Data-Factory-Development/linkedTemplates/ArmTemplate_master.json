@@ -26,6 +26,10 @@
 		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"type": "secureString"
 		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -67,6 +71,9 @@
 					},
 					"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 						"value": "[parameters('Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
+					},
+					"trigger1_properties_typeProperties_scope": {
+						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
 					}
 				}
 			},

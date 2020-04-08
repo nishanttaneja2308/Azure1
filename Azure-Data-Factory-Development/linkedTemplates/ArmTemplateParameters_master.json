@@ -20,6 +20,9 @@
 		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"value": ""
 		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant"
+		},
 		"containerUri": {
 			"value": ""
 		},
