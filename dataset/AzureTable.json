@@ -1,0 +1,15 @@
+{
+	"name": "AzureTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureTableStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "MailData9Apr2020"
+		}
+	}
+}
