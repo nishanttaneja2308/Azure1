@@ -11,9 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
 		},
+		"AzureTableStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureTableStorage'"
+		},
 		"AzureDataLakeStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://azuredatalake2nishant.dfs.core.windows.net"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant"
 		},
 		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
 			"type": "string",
@@ -25,10 +33,6 @@
 		},
 		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"type": "secureString"
-		},
-		"trigger1_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant"
 		},
 		"containerUri": {
 			"type": "string",
@@ -59,6 +63,9 @@
 					},
 					"AzureDataLakeStorage_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage_accountKey')]"
+					},
+					"AzureTableStorage_connectionString": {
+						"value": "[parameters('AzureTableStorage_connectionString')]"
 					},
 					"AzureDataLakeStorage_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]"
