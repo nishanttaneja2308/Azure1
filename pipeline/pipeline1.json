@@ -28,7 +28,8 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"maxConcurrentConnections": 0
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -37,6 +38,14 @@
 						}
 					},
 					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"redirectIncompatibleRowSettings": {
+						"linkedServiceName": {
+							"referenceName": "Log_LinkedService",
+							"type": "LinkedServiceReference"
+						},
+						"path": "demo/demo"
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
