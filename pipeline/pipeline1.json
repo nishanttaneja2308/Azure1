@@ -216,8 +216,9 @@
 					"parameters": {
 						"EmailTo": "nitaneja@in.ibm.com",
 						"Activity": "Copy Data",
-						"ErrorMessage": {
-							"value": "@activity('Copy data').Error.Message",
+						"ErrorMessage": "Test",
+						"Pipeline_Name": {
+							"value": "@pipeline().Pipeline",
 							"type": "Expression"
 						}
 					}
