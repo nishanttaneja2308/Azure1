@@ -216,8 +216,14 @@
 					"parameters": {
 						"EmailTo": "nitaneja@in.ibm.com",
 						"Activity": "Copy Data",
-						"ErrorMessage": "Test",
-						"Name": "ABC"
+						"ErrorMessage": {
+							"value": "@activity('Copy data').Error.Message",
+							"type": "Expression"
+						},
+						"Name": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						}
 					}
 				}
 			}
