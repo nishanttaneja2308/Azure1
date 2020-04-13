@@ -41,7 +41,8 @@
 				"defaultValue": "Test"
 			},
 			"Pipeline_Name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "ABC"
 			}
 		},
 		"annotations": []
