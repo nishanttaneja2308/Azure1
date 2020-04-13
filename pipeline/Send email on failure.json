@@ -1,0 +1,40 @@
+{
+	"name": "Send email on failure",
+	"properties": {
+		"activities": [
+			{
+				"name": "Send email on failure",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-43.eastus.logic.azure.com:443/workflows/c284585c8d874750b008f9dfdf03db47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uJ_0r6n7qhtXyFb-5lD3E4KMoasbeJo9Y-4e1XiOtjU",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in the @{pipeline().Pipeline}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().Pipeline}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\".\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}"
+				}
+			}
+		],
+		"parameters": {
+			"EmailTo": {
+				"type": "string"
+			},
+			"Activity": {
+				"type": "string"
+			},
+			"ErrorMessage": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
