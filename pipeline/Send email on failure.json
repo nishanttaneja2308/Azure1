@@ -20,19 +20,25 @@
 					"headers": {
 						"Content-Type": "application/json"
 					},
-					"body": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in the @{pipeline().Pipeline}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().Pipeline}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\".\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}"
+					"body": {
+						"value": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in the @{pipeline().Pipeline}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().Pipeline}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}",
+						"type": "Expression"
+					}
 				}
 			}
 		],
 		"parameters": {
 			"EmailTo": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "nitaneja@in.ibm.com"
 			},
 			"Activity": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Copy Data"
 			},
 			"ErrorMessage": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Test"
 			}
 		},
 		"annotations": []
