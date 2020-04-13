@@ -217,10 +217,7 @@
 						"EmailTo": "nitaneja@in.ibm.com",
 						"Activity": "Copy Data",
 						"ErrorMessage": "Test",
-						"Pipeline_Name": {
-							"value": "@pipeline().Pipeline",
-							"type": "Expression"
-						}
+						"Name": "ABC"
 					}
 				}
 			}
