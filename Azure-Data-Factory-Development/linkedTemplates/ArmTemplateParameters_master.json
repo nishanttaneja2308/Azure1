@@ -11,6 +11,9 @@
 		"AzureTableStorage_connectionString": {
 			"value": ""
 		},
+		"Log_LinkedService_connectionString": {
+			"value": ""
+		},
 		"AzureDataLakeStorage_properties_typeProperties_url": {
 			"value": "https://azuredatalake2nishant.dfs.core.windows.net"
 		},

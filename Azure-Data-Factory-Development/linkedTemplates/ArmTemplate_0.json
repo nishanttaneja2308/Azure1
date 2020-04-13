@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureTableStorage'"
 		},
+		"Log_LinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Log_LinkedService'"
+		},
 		"AzureDataLakeStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://azuredatalake2nishant.dfs.core.windows.net"
@@ -39,6 +43,54 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Send email on failure')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Send email on failure",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-43.eastus.logic.azure.com:443/workflows/c284585c8d874750b008f9dfdf03db47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uJ_0r6n7qhtXyFb-5lD3E4KMoasbeJo9Y-4e1XiOtjU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in the @{pipeline().Pipeline}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().Pipeline}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\".\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}",
+								"type": "Expression"
+							},
+							"linkedServices": [],
+							"datasets": []
+						}
+					}
+				],
+				"parameters": {
+					"EmailTo": {
+						"type": "string"
+					},
+					"Activity": {
+						"type": "string"
+					},
+					"ErrorMessage": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -65,6 +117,19 @@
 				"type": "AzureTableStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureTableStorage_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Log_LinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('Log_LinkedService_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -341,7 +406,8 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
+									"type": "AzureBlobFSWriteSettings",
+									"maxConcurrentConnections": 0
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
@@ -350,6 +416,14 @@
 								}
 							},
 							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"redirectIncompatibleRowSettings": {
+								"linkedServiceName": {
+									"referenceName": "Log_LinkedService",
+									"type": "LinkedServiceReference"
+								},
+								"path": "demo/demo"
+							},
 							"translator": {
 								"type": "TabularTranslator",
 								"mappings": [
@@ -510,7 +584,8 @@
 				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Demo_Demo')]",
 				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Demo')]",
 				"[concat(variables('factoryId'), '/datasets/AzureTable')]",
-				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Table_Demo')]"
+				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Table_Demo')]",
+				"[concat(variables('factoryId'), '/linkedServices/Log_LinkedService')]"
 			]
 		},
 		{

@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureTableStorage'"
 		},
+		"Log_LinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Log_LinkedService'"
+		},
 		"AzureDataLakeStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://azuredatalake2nishant.dfs.core.windows.net"
@@ -66,6 +70,9 @@
 					},
 					"AzureTableStorage_connectionString": {
 						"value": "[parameters('AzureTableStorage_connectionString')]"
+					},
+					"Log_LinkedService_connectionString": {
+						"value": "[parameters('Log_LinkedService_connectionString')]"
 					},
 					"AzureDataLakeStorage_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]"
