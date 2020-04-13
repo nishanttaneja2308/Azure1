@@ -21,7 +21,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in @{pipeline().parameters.Pipeline_Name}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().parameters.Pipeline_Name}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}",
+						"value": "{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in @{pipeline().parameters.Name}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().parameters.Name}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}\n",
 						"type": "Expression"
 					}
 				}
@@ -40,7 +40,7 @@
 				"type": "string",
 				"defaultValue": "Test"
 			},
-			"Pipeline_Name": {
+			"Name": {
 				"type": "string",
 				"defaultValue": "ABC"
 			}
