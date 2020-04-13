@@ -70,9 +70,7 @@
 							"body": {
 								"value": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in the @{pipeline().Pipeline}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().Pipeline}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\".\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}",
 								"type": "Expression"
-							},
-							"linkedServices": [],
-							"datasets": []
+							}
 						}
 					}
 				],
@@ -293,6 +291,34 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Load Copy Data Failure",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Copy data",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Send email on failure",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"EmailTo": "nitaneja@in.ibm.com",
+								"Activity": "Copy Data",
+								"ErrorMessage": {
+									"value": "@activity('Copy data').Error.Message",
+									"type": "Expression"
+								}
+							}
+						}
 					}
 				],
 				"annotations": []
@@ -302,6 +328,7 @@
 				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Demo')]",
 				"[concat(variables('factoryId'), '/datasets/AzureTable')]",
 				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Table_Demo')]",
+				"[concat(variables('factoryId'), '/pipelines/Send email on failure')]",
 				"[concat(variables('factoryId'), '/linkedServices/Log_LinkedService')]"
 			]
 		},
