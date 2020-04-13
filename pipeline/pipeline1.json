@@ -194,6 +194,34 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Load Copy Data Failure",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Copy data",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Send email on failure",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"EmailTo": "nitaneja@in.ibm.com",
+						"Activity": "Copy Data",
+						"ErrorMessage": {
+							"value": "@activity('Copy data').Error.Message",
+							"type": "Expression"
+						}
+					}
+				}
 			}
 		],
 		"annotations": []
