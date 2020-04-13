@@ -40,7 +40,7 @@
 				"type": "string",
 				"defaultValue": "Test"
 			},
-			"Pipeline": {
+			"Pipeline_Name": {
 				"type": "string"
 			}
 		},
