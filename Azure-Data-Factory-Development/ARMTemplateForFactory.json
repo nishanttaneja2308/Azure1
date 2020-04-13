@@ -103,7 +103,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data",
+						"name": "Copy data from file",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -252,7 +252,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Copy data",
+								"activity": "Copy data from file",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -304,7 +304,7 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "Copy data",
+								"activity": "Copy data from file",
 								"dependencyConditions": [
 									"Failed"
 								]
@@ -319,9 +319,12 @@
 							"waitOnCompletion": true,
 							"parameters": {
 								"EmailTo": "nitaneja@in.ibm.com",
-								"Activity": "Copy Data",
+								"Activity": {
+									"value": "activity('Copy data').name",
+									"type": "Expression"
+								},
 								"ErrorMessage": {
-									"value": "@activity('Copy data').Error.Message",
+									"value": "@activity('Copy data from file').Error.Message",
 									"type": "Expression"
 								},
 								"Name": {
