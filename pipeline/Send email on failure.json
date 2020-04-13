@@ -21,7 +21,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in @{pipeline().parameters.Pipeline}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().paramaters.Pipeline}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}",
+						"value": "\n{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in @{pipeline().parameters.Pipeline_Name}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().parameters.Pipeline_Name}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}",
 						"type": "Expression"
 					}
 				}
