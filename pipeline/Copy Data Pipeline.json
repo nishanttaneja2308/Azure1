@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline1",
+						"activity": "Call p_process procedure",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -238,19 +238,70 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline1",
-				"type": "ExecutePipeline",
+				"name": "Call p_process procedure",
+				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
-					"pipeline": {
-						"referenceName": "Process log SP",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
+					"storedProcedureName": "[dbo].[p_process]",
+					"storedProcedureParameters": {
+						"cdatafactoryname": {
+							"value": "",
+							"type": "String"
+						},
+						"cdtend": {
+							"value": "",
+							"type": "DateTime"
+						},
+						"cdtstart": {
+							"value": "",
+							"type": "DateTime"
+						},
+						"ckprocess": {
+							"value": "",
+							"type": "Int32"
+						},
+						"cpipelinename": {
+							"value": "",
+							"type": "String"
+						},
+						"cstatus": {
+							"value": "",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SQL Database Connection",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"SQl User Name": {
+							"value": "@pipeline().parameters.SQL User Name",
+							"type": "Expression"
+						},
+						"SQL Password": {
+							"value": "@pipeline().parameters.SQL Password",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
+		"parameters": {
+			"SQL User Name": {
+				"type": "string"
+			},
+			"SQL Password": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
