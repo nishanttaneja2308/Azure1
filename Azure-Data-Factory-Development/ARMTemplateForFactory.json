@@ -44,66 +44,13 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Send email on failure')]",
+			"name": "[concat(parameters('factoryName'), '/Copy Data Pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Send email on failure",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://prod-43.eastus.logic.azure.com:443/workflows/c284585c8d874750b008f9dfdf03db47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uJ_0r6n7qhtXyFb-5lD3E4KMoasbeJo9Y-4e1XiOtjU",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/json"
-							},
-							"body": {
-								"value": "{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in @{pipeline().parameters.Name}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().parameters.Name}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}\n",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"parameters": {
-					"EmailTo": {
-						"type": "string",
-						"defaultValue": "nitaneja@in.ibm.com"
-					},
-					"Activity": {
-						"type": "string",
-						"defaultValue": "Copy Data"
-					},
-					"ErrorMessage": {
-						"type": "string",
-						"defaultValue": "Test"
-					},
-					"Name": {
-						"type": "string",
-						"defaultValue": "ABC"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data from file",
+						"name": "Copy data",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -252,7 +199,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Copy data from file",
+								"activity": "Copy data",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -304,7 +251,7 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "Copy data from file",
+								"activity": "Copy data",
 								"dependencyConditions": [
 									"Failed"
 								]
@@ -320,11 +267,11 @@
 							"parameters": {
 								"EmailTo": "nitaneja@in.ibm.com",
 								"Activity": {
-									"value": "activity('Copy data').name",
+									"value": "Copy Data",
 									"type": "Expression"
 								},
 								"ErrorMessage": {
-									"value": "@activity('Copy data from file').Error.Message",
+									"value": "@activity('Copy data').Error.Message",
 									"type": "Expression"
 								},
 								"Name": {
@@ -345,6 +292,59 @@
 				"[concat(variables('factoryId'), '/pipelines/Send email on failure')]",
 				"[concat(variables('factoryId'), '/linkedServices/Log_LinkedService')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Send email on failure')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Send email on failure",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-43.eastus.logic.azure.com:443/workflows/c284585c8d874750b008f9dfdf03db47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uJ_0r6n7qhtXyFb-5lD3E4KMoasbeJo9Y-4e1XiOtjU",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"value": "{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in @{pipeline().parameters.Name}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().parameters.Name}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}\n",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"parameters": {
+					"EmailTo": {
+						"type": "string",
+						"defaultValue": "nitaneja@in.ibm.com"
+					},
+					"Activity": {
+						"type": "string",
+						"defaultValue": "Copy Data"
+					},
+					"ErrorMessage": {
+						"type": "string",
+						"defaultValue": "Test"
+					},
+					"Name": {
+						"type": "string",
+						"defaultValue": "ABC"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureTable')]",
@@ -609,7 +609,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "pipeline1",
+							"referenceName": "Copy Data Pipeline",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -627,7 +627,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipeline1')]"
+				"[concat(variables('factoryId'), '/pipelines/Copy Data Pipeline')]"
 			]
 		},
 		{
