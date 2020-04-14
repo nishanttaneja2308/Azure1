@@ -1,0 +1,58 @@
+{
+	"name": "Process log SP",
+	"properties": {
+		"activities": [
+			{
+				"name": "Call p_process procedure",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[p_process]",
+					"storedProcedureParameters": {
+						"cdatafactoryname": {
+							"value": null,
+							"type": "String"
+						},
+						"cdtend": {
+							"value": null,
+							"type": "DateTime"
+						},
+						"cdtstart": {
+							"value": null,
+							"type": "DateTime"
+						},
+						"ckprocess": {
+							"value": null,
+							"type": "Int32"
+						},
+						"cpipelinename": {
+							"value": null,
+							"type": "String"
+						},
+						"cstatus": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SQL Database Connection",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"SQl User Name": "sunildp200",
+						"SQL Password": "Welcome2IBM"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
