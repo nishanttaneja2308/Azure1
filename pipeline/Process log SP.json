@@ -56,7 +56,7 @@
 					"referenceName": "SQL Database Connection",
 					"type": "LinkedServiceReference",
 					"parameters": {
-						"SQl User Name": {
+						"SQL User Name": {
 							"value": "@pipeline().parameters.SQL User Name",
 							"type": "Expression"
 						},
