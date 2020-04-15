@@ -58,7 +58,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Execute Pipeline1",
+								"activity": "Initialize Process ID",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -293,20 +293,81 @@
 						}
 					},
 					{
-						"name": "Execute Pipeline1",
-						"type": "ExecutePipeline",
+						"name": "Initialize Process ID",
+						"type": "SqlServerStoredProcedure",
 						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
-							"pipeline": {
-								"referenceName": "Process log SP",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
+							"storedProcedureName": "[[dbo].[p_process]",
+							"storedProcedureParameters": {
+								"cdatafactoryname": {
+									"value": {
+										"value": "@pipeline().DataFactory",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"cdtend": {
+									"value": null,
+									"type": "DateTime"
+								},
+								"cdtstart": {
+									"value": {
+										"value": "@utcnow()",
+										"type": "Expression"
+									},
+									"type": "DateTime"
+								},
+								"ckprocess": {
+									"value": null,
+									"type": "Int32"
+								},
+								"cpipelinename": {
+									"value": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"cstatus": {
+									"value": "R",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "SQL Database Connection",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"SQL User Name": {
+									"value": "@pipeline().parameters.UserName",
+									"type": "Expression"
+								},
+								"SQL Password": {
+									"value": "@pipeline().parameters.Password",
+									"type": "Expression"
+								}
+							}
 						}
 					}
 				],
+				"parameters": {
+					"UserName": {
+						"type": "string",
+						"defaultValue": "sunildp200"
+					},
+					"Password": {
+						"type": "string",
+						"defaultValue": "Welcome2IBM"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -315,7 +376,7 @@
 				"[concat(variables('factoryId'), '/datasets/AzureTable')]",
 				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Table_Demo')]",
 				"[concat(variables('factoryId'), '/pipelines/Send email on failure')]",
-				"[concat(variables('factoryId'), '/pipelines/Process log SP')]",
+				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]",
 				"[concat(variables('factoryId'), '/linkedServices/Log_LinkedService')]"
 			]
 		},
@@ -341,7 +402,10 @@
 							"storedProcedureName": "[[dbo].[p_process]",
 							"storedProcedureParameters": {
 								"cdatafactoryname": {
-									"value": null,
+									"value": {
+										"value": "@pipeline().DataFactory",
+										"type": "Expression"
+									},
 									"type": "String"
 								},
 								"cdtend": {
@@ -349,7 +413,10 @@
 									"type": "DateTime"
 								},
 								"cdtstart": {
-									"value": null,
+									"value": {
+										"value": "@utcnow()",
+										"type": "Expression"
+									},
 									"type": "DateTime"
 								},
 								"ckprocess": {
@@ -357,11 +424,14 @@
 									"type": "Int32"
 								},
 								"cpipelinename": {
-									"value": null,
+									"value": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
 									"type": "String"
 								},
 								"cstatus": {
-									"value": null,
+									"value": "R",
 									"type": "String"
 								}
 							}
@@ -370,12 +440,34 @@
 							"referenceName": "SQL Database Connection",
 							"type": "LinkedServiceReference",
 							"parameters": {
-								"SQl User Name": "sunildp200",
-								"SQL Password": "Welcome2IBM"
+								"SQL User Name": {
+									"value": "@pipeline().parameters.UserName",
+									"type": "Expression"
+								},
+								"SQL Password": {
+									"value": "@pipeline().parameters.Password",
+									"type": "Expression"
+								}
 							}
 						}
 					}
 				],
+				"concurrency": 1,
+				"parameters": {
+					"UserName": {
+						"type": "string",
+						"defaultValue": "sunildp200"
+					},
+					"Password": {
+						"type": "string",
+						"defaultValue": "Welcome2IBM"
+					}
+				},
+				"variables": {
+					"ckProcess": {
+						"type": "String"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -453,6 +545,24 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureTableStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure_SqlTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SQL Database Connection",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]"
 			]
 		},
 		{
@@ -694,7 +804,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"parameters": {
-					"SQl User Name": {
+					"SQL User Name": {
 						"type": "string"
 					},
 					"SQL Password": {
