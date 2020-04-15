@@ -57,11 +57,11 @@
 					"type": "LinkedServiceReference",
 					"parameters": {
 						"SQL User Name": {
-							"value": "@pipeline().parameters.SQL User Name",
+							"value": "sunildp200",
 							"type": "Expression"
 						},
 						"SQL Password": {
-							"value": "@pipeline().parameters.SQL Password",
+							"value": "Welcome2IBM",
 							"type": "Expression"
 						}
 					}
