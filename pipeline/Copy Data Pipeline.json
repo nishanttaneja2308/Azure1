@@ -253,27 +253,36 @@
 					"storedProcedureName": "[dbo].[p_process]",
 					"storedProcedureParameters": {
 						"cdatafactoryname": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"cdtend": {
-							"value": "",
+							"value": null,
 							"type": "DateTime"
 						},
 						"cdtstart": {
-							"value": "",
+							"value": {
+								"value": "@utcnow()",
+								"type": "Expression"
+							},
 							"type": "DateTime"
 						},
 						"ckprocess": {
-							"value": "",
+							"value": null,
 							"type": "Int32"
 						},
 						"cpipelinename": {
-							"value": "",
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"cstatus": {
-							"value": "",
+							"value": "R",
 							"type": "String"
 						}
 					}
