@@ -54,7 +54,17 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"SQL User Name": {
+							"value": "@pipeline().parameters.SQL User Name",
+							"type": "Expression"
+						},
+						"SQL Password": {
+							"value": "@pipeline().parameters.SQL Password",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -78,6 +88,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"SQL User Name": {
+				"type": "string"
+			},
+			"SQL Password": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"CKProcessID": {
 				"type": "String"
