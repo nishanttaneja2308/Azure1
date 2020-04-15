@@ -88,16 +88,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"SQL User Name": {
-				"type": "string",
-				"defaultValue": "sunildp200"
-			},
-			"SQL Password": {
-				"type": "string",
-				"defaultValue": "Welcome2IBM"
-			}
-		},
 		"variables": {
 			"CKProcessID": {
 				"type": "String"
