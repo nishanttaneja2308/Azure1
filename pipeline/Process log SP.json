@@ -54,55 +54,10 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"SQL User Name": {
-							"value": "@pipeline().parameters.SQL User Name",
-							"type": "Expression"
-						},
-						"SQL Password": {
-							"value": "@pipeline().parameters.SQL Password",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Call p_process procedure",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "CKProcessID",
-					"value": {
-						"value": "@activity('Call p_process procedure').output",
-						"type": "Expression"
-					}
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
-		"parameters": {
-			"SQL User Name": {
-				"type": "string",
-				"defaultValue": "sunildp200"
-			},
-			"SQL Password": {
-				"type": "string",
-				"defaultValue": "Welcome2IBM"
-			}
-		},
-		"variables": {
-			"CKProcessID": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }
