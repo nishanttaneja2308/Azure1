@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Call p_process procedure",
+						"activity": "Initialize Process ID",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -238,7 +238,7 @@
 				}
 			},
 			{
-				"name": "Call p_process procedure",
+				"name": "Initialize Process ID",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
