@@ -3,7 +3,7 @@
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"parameters": {
-			"SQl User Name": {
+			"SQL User Name": {
 				"type": "string"
 			},
 			"SQL Password": {
@@ -13,7 +13,7 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ibmdatafactory.database.windows.net;Initial Catalog=azuresqldatabase;User ID=\"@{linkedService().SQl User Name}\";Password=\"@{linkedService().SQL Password}\""
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ibmdatafactory.database.windows.net;Initial Catalog=azuresqldatabase;User ID=\"@{linkedService().SQL User Name}\";Password=\"@{linkedService().SQL Password}\""
 		}
 	}
 }
