@@ -54,7 +54,11 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"SQL User Name": "sunildp200",
+						"SQL Password": "Welcome2IBM"
+					}
 				}
 			}
 		],
