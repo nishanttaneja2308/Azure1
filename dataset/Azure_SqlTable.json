@@ -6,21 +6,10 @@
 			"type": "LinkedServiceReference",
 			"parameters": {
 				"SQL User Name": {
-					"value": "@dataset().SQL User Name",
+					"value": "sunildp200",
 					"type": "Expression"
 				},
-				"SQL Password": {
-					"value": "@dataset().SQL Password",
-					"type": "Expression"
-				}
-			}
-		},
-		"parameters": {
-			"SQL User Name": {
-				"type": "string"
-			},
-			"SQL Password": {
-				"type": "string"
+				"SQL Password": "Welcome2IBM"
 			}
 		},
 		"annotations": [],
