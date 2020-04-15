@@ -50,33 +50,8 @@
 					"referenceName": "SQL Database Connection",
 					"type": "LinkedServiceReference"
 				}
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Call p_process procedure",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "CKProcessID",
-					"value": {
-						"value": "@activity('Call p_process procedure').output",
-						"type": "Expression"
-					}
-				}
 			}
 		],
-		"variables": {
-			"CKProcessID": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }
