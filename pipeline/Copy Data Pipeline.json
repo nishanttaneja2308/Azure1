@@ -470,6 +470,10 @@
 							"type": "DateTime"
 						},
 						"ckprocess": {
+							"value": {
+								"value": "@variables('ckProcessID')",
+								"type": "Expression"
+							},
 							"type": "Int32"
 						},
 						"cpipelinename": {
