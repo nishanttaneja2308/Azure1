@@ -18,7 +18,10 @@
 					"storedProcedureName": "[dbo].[p_process]",
 					"storedProcedureParameters": {
 						"cdatafactoryname": {
-							"value": "Azure-Data-Factory-Development",
+							"value": {
+								"value": "@pipeline().DataFactory",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"cdtend": {
@@ -37,7 +40,10 @@
 							"type": "Int32"
 						},
 						"cpipelinename": {
-							"value": "Process log SP",
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"cstatus": {
