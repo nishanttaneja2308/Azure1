@@ -18,14 +18,11 @@
 					"storedProcedureName": "[dbo].[p_process]",
 					"storedProcedureParameters": {
 						"cdatafactoryname": {
-							"value": {
-								"value": "@pipeline().DataFactory",
-								"type": "Expression"
-							},
+							"value": "Azure-Data-Factory-Development",
 							"type": "String"
 						},
 						"cdtend": {
-							"value": "",
+							"value": null,
 							"type": "DateTime"
 						},
 						"cdtstart": {
@@ -36,14 +33,11 @@
 							"type": "DateTime"
 						},
 						"ckprocess": {
-							"value": "",
+							"value": null,
 							"type": "Int32"
 						},
 						"cpipelinename": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
+							"value": "Process log SP",
 							"type": "String"
 						},
 						"cstatus": {
@@ -54,17 +48,7 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"SQL User Name": {
-							"value": "sunildp200",
-							"type": "Expression"
-						},
-						"SQL Password": {
-							"value": "Welcome2IBM",
-							"type": "Expression"
-						}
-					}
+					"type": "LinkedServiceReference"
 				}
 			},
 			{
