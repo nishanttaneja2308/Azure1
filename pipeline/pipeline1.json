@@ -63,7 +63,7 @@
 			}
 		],
 		"parameters": {
-			"User Name": {
+			"User": {
 				"type": "string",
 				"defaultValue": "sunildp200"
 			},
