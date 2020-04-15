@@ -238,81 +238,9 @@
 				}
 			},
 			{
-				"name": "Call p_process procedure",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[p_process]",
-					"storedProcedureParameters": {
-						"cdatafactoryname": {
-							"value": {
-								"value": "@pipeline().DataFactory",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"cdtend": {
-							"value": null,
-							"type": "DateTime"
-						},
-						"cdtstart": {
-							"value": {
-								"value": "@utcnow()",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"ckprocess": {
-							"value": null,
-							"type": "Int32"
-						},
-						"cpipelinename": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"cstatus": {
-							"value": "R",
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"SQL User Name": {
-							"value": "@pipeline().parameters.UserName",
-							"type": "Expression"
-						},
-						"SQL Password": {
-							"value": "@pipeline().parameters.Password",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
 				"name": "Get Process ID",
 				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Call p_process procedure",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -324,6 +252,42 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[p_process]",
+						"storedProcedureParameters": {
+							"cdatafactoryname": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().DataFactory",
+									"type": "Expression"
+								}
+							},
+							"cdtend": {
+								"type": "DateTime",
+								"value": null
+							},
+							"cdtstart": {
+								"type": "DateTime",
+								"value": {
+									"value": "@utcnow()",
+									"type": "Expression"
+								}
+							},
+							"ckprocess": {
+								"type": "Int32",
+								"value": null
+							},
+							"cpipelinename": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().Pipeline",
+									"type": "Expression"
+								}
+							},
+							"cstatus": {
+								"type": "String",
+								"value": "R"
+							}
+						},
 						"queryTimeout": "02:00:00"
 					},
 					"dataset": {
