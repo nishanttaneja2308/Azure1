@@ -3,14 +3,7 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SQL Database Connection",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"SQL User Name": {
-					"value": "sunildp200",
-					"type": "Expression"
-				},
-				"SQL Password": "Welcome2IBM"
-			}
+			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
