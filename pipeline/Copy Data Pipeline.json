@@ -291,12 +291,12 @@
 					"referenceName": "SQL Database Connection",
 					"type": "LinkedServiceReference",
 					"parameters": {
-						"SQl User Name": {
-							"value": "@pipeline().parameters.SQL User Name",
+						"SQL User Name": {
+							"value": "@pipeline().parameters.UserName",
 							"type": "Expression"
 						},
 						"SQL Password": {
-							"value": "@pipeline().parameters.SQL Password",
+							"value": "@pipeline().parameters.Password",
 							"type": "Expression"
 						}
 					}
@@ -304,11 +304,13 @@
 			}
 		],
 		"parameters": {
-			"SQL User Name": {
-				"type": "string"
+			"UserName": {
+				"type": "string",
+				"defaultValue": "sunildp200"
 			},
-			"SQL Password": {
-				"type": "string"
+			"Password": {
+				"type": "string",
+				"defaultValue": "Welcome2IBM"
 			}
 		},
 		"annotations": []
