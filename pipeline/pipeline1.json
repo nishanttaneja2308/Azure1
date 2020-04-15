@@ -62,6 +62,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"User Name": {
+				"type": "string"
+			},
+			"Password": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
