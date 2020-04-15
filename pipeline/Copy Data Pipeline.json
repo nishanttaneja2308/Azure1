@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Initialize Process ID",
+						"activity": "Set variable1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -238,7 +238,7 @@
 				}
 			},
 			{
-				"name": "Initialize Process ID",
+				"name": "Call p_process procedure",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -301,6 +301,67 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Get Process ID",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Call p_process procedure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select max(ckprocess) as CKProcessID from tprocess(nolock)",
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "Azure_SqlTable",
+						"type": "DatasetReference",
+						"parameters": {
+							"UserName": {
+								"value": "@pipeline().parameters.UserName",
+								"type": "Expression"
+							},
+							"Password": {
+								"value": "@pipeline().parameters.Password",
+								"type": "Expression"
+							}
+						}
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Process ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ckProcessID",
+					"value": {
+						"value": "@string(activity('Get Process ID').output.firstRow)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -311,6 +372,11 @@
 			"Password": {
 				"type": "string",
 				"defaultValue": "Welcome2IBM"
+			}
+		},
+		"variables": {
+			"ckProcessID": {
+				"type": "String"
 			}
 		},
 		"annotations": []
