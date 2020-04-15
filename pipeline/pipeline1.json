@@ -64,10 +64,12 @@
 		],
 		"parameters": {
 			"User Name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "sunildp200"
 			},
 			"Password": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Welcome2IBM"
 			}
 		},
 		"annotations": []
