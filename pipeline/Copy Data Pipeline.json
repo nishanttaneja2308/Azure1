@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "Create_Process_ID",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -238,7 +238,7 @@
 				}
 			},
 			{
-				"name": "Get Process ID",
+				"name": "Create_Process_ID",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -303,26 +303,6 @@
 								"type": "Expression"
 							}
 						}
-					}
-				}
-			},
-			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Get Process ID",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "ckProcessID",
-					"value": {
-						"value": "@string(activity('Get Process ID').output.firstRow)",
-						"type": "Expression"
 					}
 				}
 			},
@@ -434,7 +414,7 @@
 						},
 						"ckprocess": {
 							"value": {
-								"value": "@variables('ckProcessID')",
+								"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
 								"type": "Expression"
 							},
 							"type": "Int32"
@@ -473,11 +453,6 @@
 			"Password": {
 				"type": "string",
 				"defaultValue": "Welcome2IBM"
-			}
-		},
-		"variables": {
-			"ckProcessID": {
-				"type": "String"
 			}
 		},
 		"annotations": []
