@@ -90,10 +90,12 @@
 		],
 		"parameters": {
 			"SQL User Name": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "sunildp200"
 			},
 			"SQL Password": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Welcome2IBM"
 			}
 		},
 		"variables": {
