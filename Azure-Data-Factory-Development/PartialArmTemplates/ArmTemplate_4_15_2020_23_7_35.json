@@ -6,41 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "Azure-Data-Factory-Development"
-		},
-		"AzureDataLakeStorage_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage'"
-		},
-		"AzureTableStorage_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureTableStorage'"
-		},
-		"Log_LinkedService_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'Log_LinkedService'"
-		},
-		"SQL Database Connection_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SQL Database Connection'"
-		},
-		"AzureDataLakeStorage_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://azuredatalake2nishant.dfs.core.windows.net"
-		},
-		"trigger1_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant"
-		},
-		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
-			"type": "string",
-			"defaultValue": "azuresqlserver-nishant.database.windows.net"
-		},
-		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
-			"type": "string",
-			"defaultValue": "IBM_ADMIN"
-		},
-		"Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
-			"type": "secureString"
 		}
 	},
 	"variables": {
@@ -193,15 +158,13 @@
 						"inputs": [
 							{
 								"referenceName": "CSV_DataSet_Demo_Demo",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "CSV_DataSet_Demo",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -245,15 +208,13 @@
 						"inputs": [
 							{
 								"referenceName": "AzureTable",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "CSV_DataSet_Table_Demo",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -575,14 +536,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Demo_Demo')]",
-				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Demo')]",
-				"[concat(variables('factoryId'), '/datasets/AzureTable')]",
-				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Table_Demo')]",
-				"[concat(variables('factoryId'), '/pipelines/Send email on failure')]",
-				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]",
-				"[concat(variables('factoryId'), '/datasets/Azure_SqlTable')]",
-				"[concat(variables('factoryId'), '/linkedServices/Log_LinkedService')]"
+				"[concat(variables('factoryId'), '/datasets/Azure_SqlTable')]"
 			]
 		},
 		{
@@ -737,81 +691,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]",
 				"[concat(variables('factoryId'), '/datasets/Azure_SqlTable')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Send email on failure')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Send email on failure",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://prod-43.eastus.logic.azure.com:443/workflows/c284585c8d874750b008f9dfdf03db47/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uJ_0r6n7qhtXyFb-5lD3E4KMoasbeJo9Y-4e1XiOtjU",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/json"
-							},
-							"body": {
-								"value": "{\n\"EmailTo\":\"@{pipeline().parameters.EmailTo}\",\n\"Subject\":\"An error has occured in @{pipeline().parameters.Name}-pipeline\",\n\"DataFactoryName\": \"@{pipeline().DataFactory}\",\n\"PipelineName\": \"@{pipeline().parameters.Name}\",\n\"Activity\": \"@{pipeline().parameters.Activity}\",\n\"ErrorMessage\": \"@{pipeline().parameters.ErrorMessage}\"\n}\n",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"parameters": {
-					"EmailTo": {
-						"type": "string",
-						"defaultValue": "nitaneja@in.ibm.com"
-					},
-					"Activity": {
-						"type": "string",
-						"defaultValue": "Copy Data"
-					},
-					"ErrorMessage": {
-						"type": "string",
-						"defaultValue": "Test"
-					},
-					"Name": {
-						"type": "string",
-						"defaultValue": "ABC"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureTable')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureTableStorage",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureTable",
-				"schema": [],
-				"typeProperties": {
-					"tableName": "MailData9Apr2020"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureTableStorage')]"
 			]
 		},
 		{
@@ -843,325 +723,7 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CSV_DataSet_Demo')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@concat('consumers-price-index-',utcnow())",
-							"type": "Expression"
-						},
-						"fileSystem": "demo"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Series_reference",
-						"type": "String"
-					},
-					{
-						"name": "Period",
-						"type": "String"
-					},
-					{
-						"name": "Data_value",
-						"type": "String"
-					},
-					{
-						"name": "STATUS",
-						"type": "String"
-					},
-					{
-						"name": "UNITS",
-						"type": "String"
-					},
-					{
-						"name": "Subject",
-						"type": "String"
-					},
-					{
-						"name": "Group",
-						"type": "String"
-					},
-					{
-						"name": "Series_title_1",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CSV_DataSet_Demo_Demo')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "consumers-price-index-December19-index-numbers-csv-tables.csv",
-						"folderPath": "demo",
-						"fileSystem": "demo"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Series_reference",
-						"type": "String"
-					},
-					{
-						"name": "Period",
-						"type": "String"
-					},
-					{
-						"name": "Data_value",
-						"type": "String"
-					},
-					{
-						"name": "STATUS",
-						"type": "String"
-					},
-					{
-						"name": "UNITS",
-						"type": "String"
-					},
-					{
-						"name": "Subject",
-						"type": "String"
-					},
-					{
-						"name": "Group",
-						"type": "String"
-					},
-					{
-						"name": "Series_title_1",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CSV_DataSet_Table_Demo')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@concat('Table_Storage',utcnow())",
-							"type": "Expression"
-						},
-						"fileSystem": "demo"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Series_reference",
-						"type": "String"
-					},
-					{
-						"name": "Period",
-						"type": "String"
-					},
-					{
-						"name": "Data_value",
-						"type": "String"
-					},
-					{
-						"name": "STATUS",
-						"type": "String"
-					},
-					{
-						"name": "UNITS",
-						"type": "String"
-					},
-					{
-						"name": "Subject",
-						"type": "String"
-					},
-					{
-						"name": "Group",
-						"type": "String"
-					},
-					{
-						"name": "Series_title_1",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureTableStorage')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureTableStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureTableStorage_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Log_LinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('Log_LinkedService_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SQL Database Connection')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"parameters": {
-					"SQL User Name": {
-						"type": "string"
-					},
-					"SQL Password": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('SQL Database Connection_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Copy Data Pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/demo/blobs/demo/consumers-price-index-December19-index-numbers-csv-tables.csv",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('trigger1_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated",
-						"Microsoft.Storage.BlobDeleted"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Copy Data Pipeline')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Integration-Runtime-SSIS')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "Managed",
-				"typeProperties": {
-					"computeProperties": {
-						"location": "Central US",
-						"nodeSize": "Standard_D8_v3",
-						"numberOfNodes": 2,
-						"maxParallelExecutionsPerNode": 1
-					},
-					"ssisProperties": {
-						"catalogInfo": {
-							"catalogServerEndpoint": "[parameters('Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint')]",
-							"catalogAdminUserName": "[parameters('Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName')]",
-							"catalogAdminPassword": {
-								"type": "SecureString",
-								"value": "[parameters('Integration-Runtime-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
-							},
-							"catalogPricingTier": "S1"
-						},
-						"edition": "Standard",
-						"licenseType": "BasePrice"
-					}
-				}
+				"schema": []
 			},
 			"dependsOn": []
 		}
