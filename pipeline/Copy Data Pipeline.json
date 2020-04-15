@@ -207,9 +207,9 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Copy data",
+						"activity": "Fail p_process procedure",
 						"dependencyConditions": [
-							"Failed"
+							"Succeeded"
 						]
 					}
 				],
@@ -324,7 +324,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select max(ckprocess) as CKProcessID from tprocess(nolock)",
+						"sqlReaderQuery": "select max(ckprocess) from tprocess(nolock)",
 						"queryTimeout": "02:00:00"
 					},
 					"dataset": {
@@ -441,12 +441,6 @@
 						"dependencyConditions": [
 							"Failed"
 						]
-					},
-					{
-						"activity": "Copy data1",
-						"dependencyConditions": [
-							"Failed"
-						]
 					}
 				],
 				"policy": {
@@ -476,10 +470,6 @@
 							"type": "DateTime"
 						},
 						"ckprocess": {
-							"value": {
-								"value": "@int(variables('ckProcessID'))",
-								"type": "Expression"
-							},
 							"type": "Int32"
 						},
 						"cpipelinename": {
