@@ -610,6 +610,27 @@
 								}
 							}
 						}
+					},
+					{
+						"name": "File_Archival",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Copy_data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Archive_Delete_File",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"parameters": {
@@ -632,6 +653,7 @@
 				"[concat(variables('factoryId'), '/pipelines/Send email on failure')]",
 				"[concat(variables('factoryId'), '/datasets/Azure_SqlTable')]",
 				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]",
+				"[concat(variables('factoryId'), '/pipelines/Archive_Delete_File')]",
 				"[concat(variables('factoryId'), '/linkedServices/Log_LinkedService')]"
 			]
 		},
