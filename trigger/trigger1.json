@@ -17,8 +17,7 @@
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant",
 			"events": [
-				"Microsoft.Storage.BlobCreated",
-				"Microsoft.Storage.BlobDeleted"
+				"Microsoft.Storage.BlobCreated"
 			]
 		}
 	}
