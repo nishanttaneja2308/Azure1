@@ -315,12 +315,6 @@
 						"dependencyConditions": [
 							"Failed"
 						]
-					},
-					{
-						"activity": "Copy_data1",
-						"dependencyConditions": [
-							"Failed"
-						]
 					}
 				],
 				"policy": {
@@ -382,13 +376,13 @@
 				}
 			},
 			{
-				"name": "Fail p_process procedure_copy1",
+				"name": "Fail p_process_procedure1",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
 						"activity": "Copy_data1",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
