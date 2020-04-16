@@ -424,7 +424,10 @@
 							"type": "String"
 						},
 						"cstatus": {
-							"value": "E",
+							"value": {
+								"value": "E",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
