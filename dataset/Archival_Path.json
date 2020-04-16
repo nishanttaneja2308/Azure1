@@ -10,6 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('consumers-price-index-',utcnow())",
+					"type": "Expression"
+				},
 				"folderPath": "demo/Archive",
 				"fileSystem": "demo"
 			},
