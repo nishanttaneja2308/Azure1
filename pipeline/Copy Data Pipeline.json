@@ -425,7 +425,7 @@
 						},
 						"cstatus": {
 							"value": {
-								"value": "E",
+								"value": "if(@activity('Copy_data1').output.status='Success','S','E')",
 								"type": "Expression"
 							},
 							"type": "String"
