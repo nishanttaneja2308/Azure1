@@ -27,6 +27,10 @@
 			"type": "string",
 			"defaultValue": "https://azuredatalake2nishant.dfs.core.windows.net"
 		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://NishantAzureKeyVault.vault.azure.net/"
+		},
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant"
@@ -54,11 +58,11 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data",
+						"name": "Copy_data",
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Set variable1",
+								"activity": "Create_Process_ID",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -206,11 +210,11 @@
 						]
 					},
 					{
-						"name": "Copy data1",
+						"name": "Copy_data1",
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Copy data",
+								"activity": "Copy_data",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -262,9 +266,9 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "Fail p_process procedure",
+								"activity": "Copy_data",
 								"dependencyConditions": [
-									"Succeeded"
+									"Failed"
 								]
 							}
 						],
@@ -282,7 +286,7 @@
 									"type": "Expression"
 								},
 								"ErrorMessage": {
-									"value": "@activity('Copy data').Error.Message",
+									"value": "@activity('Copy_data').Error.Message",
 									"type": "Expression"
 								},
 								"Name": {
@@ -293,81 +297,9 @@
 						}
 					},
 					{
-						"name": "Call p_process procedure",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[p_process]",
-							"storedProcedureParameters": {
-								"cdatafactoryname": {
-									"value": {
-										"value": "@pipeline().DataFactory",
-										"type": "Expression"
-									},
-									"type": "String"
-								},
-								"cdtend": {
-									"value": null,
-									"type": "DateTime"
-								},
-								"cdtstart": {
-									"value": {
-										"value": "@utcnow()",
-										"type": "Expression"
-									},
-									"type": "DateTime"
-								},
-								"ckprocess": {
-									"value": null,
-									"type": "Int32"
-								},
-								"cpipelinename": {
-									"value": {
-										"value": "@pipeline().Pipeline",
-										"type": "Expression"
-									},
-									"type": "String"
-								},
-								"cstatus": {
-									"value": "R",
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "SQL Database Connection",
-							"type": "LinkedServiceReference",
-							"parameters": {
-								"SQL User Name": {
-									"value": "@pipeline().parameters.UserName",
-									"type": "Expression"
-								},
-								"SQL Password": {
-									"value": "@pipeline().parameters.Password",
-									"type": "Expression"
-								}
-							}
-						}
-					},
-					{
-						"name": "Get Process ID",
+						"name": "Create_Process_ID",
 						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Call p_process procedure",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -379,7 +311,42 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "select max(ckprocess) from tprocess(nolock)",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_process]",
+								"storedProcedureParameters": {
+									"cdatafactoryname": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().DataFactory",
+											"type": "Expression"
+										}
+									},
+									"cdtend": {
+										"type": "DateTime",
+										"value": null
+									},
+									"cdtstart": {
+										"type": "DateTime",
+										"value": {
+											"value": "@utcnow()",
+											"type": "Expression"
+										}
+									},
+									"ckprocess": {
+										"type": "Int32",
+										"value": null
+									},
+									"cpipelinename": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										}
+									},
+									"cstatus": {
+										"type": "String",
+										"value": "R"
+									}
+								},
 								"queryTimeout": "02:00:00"
 							},
 							"dataset": {
@@ -399,100 +366,11 @@
 						}
 					},
 					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Get Process ID",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "ckProcessID",
-							"value": {
-								"value": "@string(activity('Get Process ID').output.firstRow)",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "End p_process procedure",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "Copy data1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[p_process]",
-							"storedProcedureParameters": {
-								"cdatafactoryname": {
-									"value": null,
-									"type": "String"
-								},
-								"cdtend": {
-									"value": {
-										"value": "@utcnow()",
-										"type": "Expression"
-									},
-									"type": "DateTime"
-								},
-								"cdtstart": {
-									"value": null,
-									"type": "DateTime"
-								},
-								"ckprocess": {
-									"value": {
-										"value": "@int(variables('ckProcessID'))",
-										"type": "Expression"
-									},
-									"type": "Int32"
-								},
-								"cpipelinename": {
-									"value": null,
-									"type": "String"
-								},
-								"cstatus": {
-									"value": "S",
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "SQL Database Connection",
-							"type": "LinkedServiceReference",
-							"parameters": {
-								"SQL User Name": {
-									"value": "@pipeline().parameters.UserName",
-									"type": "Expression"
-								},
-								"SQL Password": {
-									"value": "@pipeline().parameters.Password",
-									"type": "Expression"
-								}
-							}
-						}
-					},
-					{
 						"name": "Fail p_process procedure",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "Copy data",
+								"activity": "Copy_data",
 								"dependencyConditions": [
 									"Failed"
 								]
@@ -526,7 +404,76 @@
 								},
 								"ckprocess": {
 									"value": {
-										"value": "@variables('ckProcessID')",
+										"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
+										"type": "Expression"
+									},
+									"type": "Int32"
+								},
+								"cpipelinename": {
+									"value": null,
+									"type": "String"
+								},
+								"cstatus": {
+									"value": "E",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "SQL Database Connection",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"SQL User Name": {
+									"value": "@pipeline().parameters.UserName",
+									"type": "Expression"
+								},
+								"SQL Password": {
+									"value": "@pipeline().parameters.Password",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Fail p_process_procedure1",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Copy_data1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[p_process]",
+							"storedProcedureParameters": {
+								"cdatafactoryname": {
+									"value": null,
+									"type": "String"
+								},
+								"cdtend": {
+									"value": {
+										"value": "@utcnow()",
+										"type": "Expression"
+									},
+									"type": "DateTime"
+								},
+								"cdtstart": {
+									"value": null,
+									"type": "DateTime"
+								},
+								"ckprocess": {
+									"value": {
+										"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
 										"type": "Expression"
 									},
 									"type": "Int32"
@@ -567,11 +514,6 @@
 						"defaultValue": "Welcome2IBM"
 					}
 				},
-				"variables": {
-					"ckProcessID": {
-						"type": "String"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -580,8 +522,8 @@
 				"[concat(variables('factoryId'), '/datasets/AzureTable')]",
 				"[concat(variables('factoryId'), '/datasets/CSV_DataSet_Table_Demo')]",
 				"[concat(variables('factoryId'), '/pipelines/Send email on failure')]",
-				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]",
 				"[concat(variables('factoryId'), '/datasets/Azure_SqlTable')]",
+				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]",
 				"[concat(variables('factoryId'), '/linkedServices/Log_LinkedService')]"
 			]
 		},
@@ -844,7 +786,10 @@
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
-				"typeProperties": {}
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "tprocess"
+				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SQL Database Connection')]"
@@ -1053,6 +998,19 @@
 						"type": "SecureString",
 						"value": "[parameters('AzureDataLakeStorage_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []

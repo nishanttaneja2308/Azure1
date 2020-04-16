@@ -20,6 +20,9 @@
 		"AzureDataLakeStorage_properties_typeProperties_url": {
 			"value": "https://azuredatalake2nishant.dfs.core.windows.net"
 		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://NishantAzureKeyVault.vault.azure.net/"
+		},
 		"trigger1_properties_typeProperties_scope": {
 			"value": "/subscriptions/0f32e670-d05c-4bda-be1b-936991e7ab14/resourceGroups/DataFactory_ResourceGroup/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant"
 		},
