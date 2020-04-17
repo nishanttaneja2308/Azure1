@@ -382,7 +382,7 @@
 					{
 						"activity": "Copy_data1",
 						"dependencyConditions": [
-							"Completed"
+							"Succeeded"
 						]
 					}
 				],
@@ -425,9 +425,78 @@
 						},
 						"cstatus": {
 							"value": {
-								"value": "if(@activity('Copy_data1').output.status='Success','S','E')",
+								"value": "S",
 								"type": "Expression"
 							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SQL Database Connection",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"SQL User Name": {
+							"value": "@pipeline().parameters.UserName",
+							"type": "Expression"
+						},
+						"SQL Password": {
+							"value": "@pipeline().parameters.Password",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Fail p_process_procedure1_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy_data1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[p_process]",
+					"storedProcedureParameters": {
+						"cdatafactoryname": {
+							"value": null,
+							"type": "String"
+						},
+						"cdtend": {
+							"value": {
+								"value": "@utcnow()",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"cdtstart": {
+							"value": null,
+							"type": "DateTime"
+						},
+						"ckprocess": {
+							"value": {
+								"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
+								"type": "Expression"
+							},
+							"type": "Int32"
+						},
+						"cpipelinename": {
+							"value": null,
+							"type": "String"
+						},
+						"cstatus": {
+							"value": "E",
 							"type": "String"
 						}
 					}
