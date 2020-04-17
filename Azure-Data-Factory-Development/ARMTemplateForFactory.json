@@ -551,86 +551,13 @@
 						}
 					},
 					{
-						"name": "Fail p_process_procedure1",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "Copy_data1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[p_process]",
-							"storedProcedureParameters": {
-								"cdatafactoryname": {
-									"value": null,
-									"type": "String"
-								},
-								"cdtend": {
-									"value": {
-										"value": "@utcnow()",
-										"type": "Expression"
-									},
-									"type": "DateTime"
-								},
-								"cdtstart": {
-									"value": null,
-									"type": "DateTime"
-								},
-								"cerror": {
-									"value": null,
-									"type": "String"
-								},
-								"ckprocess": {
-									"value": {
-										"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
-										"type": "Expression"
-									},
-									"type": "Int32"
-								},
-								"cpipelinename": {
-									"value": null,
-									"type": "String"
-								},
-								"cstatus": {
-									"value": "S",
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "SQL Database Connection",
-							"type": "LinkedServiceReference",
-							"parameters": {
-								"SQL User Name": {
-									"value": "@pipeline().parameters.UserName",
-									"type": "Expression"
-								},
-								"SQL Password": {
-									"value": "@pipeline().parameters.Password",
-									"type": "Expression"
-								}
-							}
-						}
-					},
-					{
 						"name": "Fail p_process_procedure1_copy1",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
 								"activity": "Copy_data1",
 								"dependencyConditions": [
-									"Failed"
+									"Completed"
 								]
 							}
 						],
@@ -679,7 +606,10 @@
 									"type": "String"
 								},
 								"cstatus": {
-									"value": "E",
+									"value": {
+										"value": "@if(equals(activity('Copy_data1').status,'Failed'),'E','S')",
+										"type": "Expression"
+									},
 									"type": "String"
 								}
 							}
@@ -977,7 +907,7 @@
 				"type": "AzureTable",
 				"schema": [],
 				"typeProperties": {
-					"tableName": "MailData9Apr2020"
+					"tableName": "EMAILID"
 				}
 			},
 			"dependsOn": [
