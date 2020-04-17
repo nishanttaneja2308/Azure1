@@ -389,14 +389,7 @@
 			{
 				"name": "Fail p_process_procedure1",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "Copy_data1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -466,7 +459,7 @@
 					{
 						"activity": "Copy_data1",
 						"dependencyConditions": [
-							"Failed"
+							"Completed"
 						]
 					}
 				],
@@ -498,7 +491,7 @@
 						},
 						"cerror": {
 							"value": {
-								"value": "@activity('Copy_data1').status",
+								"value": "@activity('Copy_data1').Error.Message",
 								"type": "Expression"
 							},
 							"type": "String"
@@ -515,7 +508,10 @@
 							"type": "String"
 						},
 						"cstatus": {
-							"value": "E",
+							"value": {
+								"value": "@if(equals(activity('Copy_data1').status,'Failed'),'E','S')",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
