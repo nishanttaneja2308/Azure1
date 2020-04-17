@@ -436,6 +436,10 @@
 											"type": "Expression"
 										}
 									},
+									"cerror": {
+										"type": "String",
+										"value": null
+									},
 									"ckprocess": {
 										"type": "Int32",
 										"value": null
@@ -507,6 +511,13 @@
 									"value": null,
 									"type": "DateTime"
 								},
+								"cerror": {
+									"value": {
+										"value": "@activity('Copy_data').output.Error.Message",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
 								"ckprocess": {
 									"value": {
 										"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
@@ -576,6 +587,10 @@
 									"value": null,
 									"type": "DateTime"
 								},
+								"cerror": {
+									"value": null,
+									"type": "String"
+								},
 								"ckprocess": {
 									"value": {
 										"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
@@ -588,10 +603,7 @@
 									"type": "String"
 								},
 								"cstatus": {
-									"value": {
-										"value": "S",
-										"type": "Expression"
-									},
+									"value": "S",
 									"type": "String"
 								}
 							}
@@ -647,6 +659,13 @@
 								"cdtstart": {
 									"value": null,
 									"type": "DateTime"
+								},
+								"cerror": {
+									"value": {
+										"value": "@activity('Copy_data1').output.Error.Message",
+										"type": "Expression"
+									},
+									"type": "String"
 								},
 								"ckprocess": {
 									"value": {
