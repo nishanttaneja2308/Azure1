@@ -482,10 +482,7 @@
 					"storedProcedureName": "[dbo].[p_process]",
 					"storedProcedureParameters": {
 						"cdatafactoryname": {
-							"value": {
-								"value": "@activity('Copy_data1').status",
-								"type": "Expression"
-							},
+							"value": null,
 							"type": "String"
 						},
 						"cdtend": {
@@ -501,7 +498,7 @@
 						},
 						"cerror": {
 							"value": {
-								"value": "@activity('Copy_data1').Error.Message",
+								"value": "@activity('Copy_data1').status",
 								"type": "Expression"
 							},
 							"type": "String"
