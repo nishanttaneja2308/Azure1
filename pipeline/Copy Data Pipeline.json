@@ -482,7 +482,10 @@
 					"storedProcedureName": "[dbo].[p_process]",
 					"storedProcedureParameters": {
 						"cdatafactoryname": {
-							"value": null,
+							"value": {
+								"value": "@activity('Copy_data1').status",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"cdtend": {
