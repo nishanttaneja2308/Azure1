@@ -589,7 +589,7 @@
 								},
 								"cerror": {
 									"value": {
-										"value": "@activity('Copy_data1').Error.Message",
+										"value": "@if(equals(activity('Copy_data1').status,'Failed'),activity('Copy_data1').Error.Message,null)",
 										"type": "Expression"
 									},
 									"type": "String"
