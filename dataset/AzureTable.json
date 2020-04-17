@@ -9,7 +9,7 @@
 		"type": "AzureTable",
 		"schema": [],
 		"typeProperties": {
-			"tableName": "MailData9Apr2020"
+			"tableName": "EMAILID"
 		}
 	}
 }
