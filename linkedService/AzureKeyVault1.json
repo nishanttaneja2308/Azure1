@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "AzureKeyVault",
 		"typeProperties": {
-			"baseUrl": "https://NishantAzureKeyVault.vault.azure.net/"
+			"baseUrl": "https://AzureSQLDatabaseKeyVault.vault.azure.net/"
 		}
 	}
 }
