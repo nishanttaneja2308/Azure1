@@ -513,7 +513,7 @@
 								},
 								"cerror": {
 									"value": {
-										"value": "@activity('Copy_data').output.Error.Message",
+										"value": "@activity('Copy_data').Error.Message",
 										"type": "Expression"
 									},
 									"type": "String"
@@ -662,7 +662,7 @@
 								},
 								"cerror": {
 									"value": {
-										"value": "@activity('Copy_data1').output.Error.Message",
+										"value": "@activity('Copy_data1').Error.Message",
 										"type": "Expression"
 									},
 									"type": "String"
