@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "consumers-price-index-December19-index-numbers-csv-tables.csv",
+				"fileName": "SacramentocrimeJanuary2006.csv",
 				"folderPath": "demo",
 				"fileSystem": "demo"
 			},
