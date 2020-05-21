@@ -203,41 +203,6 @@
 				]
 			},
 			{
-				"name": "Load Copy Data Failure",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Copy_data",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "Send email on failure",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"EmailTo": "nitaneja@in.ibm.com",
-						"Activity": {
-							"value": "Copy Data",
-							"type": "Expression"
-						},
-						"ErrorMessage": {
-							"value": "@activity('Copy_data').Error.Message",
-							"type": "Expression"
-						},
-						"Name": {
-							"value": "@pipeline().Pipeline",
-							"type": "Expression"
-						}
-					}
-				}
-			},
-			{
 				"name": "Create_Process_ID",
 				"type": "Lookup",
 				"dependsOn": [],
