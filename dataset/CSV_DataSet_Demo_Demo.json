@@ -29,35 +29,39 @@
 		},
 		"schema": [
 			{
-				"name": "Series_reference",
+				"name": "cdatetime",
 				"type": "String"
 			},
 			{
-				"name": "Period",
+				"name": "address",
 				"type": "String"
 			},
 			{
-				"name": "Data_value",
+				"name": "district",
 				"type": "String"
 			},
 			{
-				"name": "STATUS",
+				"name": "beat",
 				"type": "String"
 			},
 			{
-				"name": "UNITS",
+				"name": "grid",
 				"type": "String"
 			},
 			{
-				"name": "Subject",
+				"name": "crimedescr",
 				"type": "String"
 			},
 			{
-				"name": "Group",
+				"name": "ucr_ncic_code",
 				"type": "String"
 			},
 			{
-				"name": "Series_title_1",
+				"name": "latitude",
+				"type": "String"
+			},
+			{
+				"name": "longitude",
 				"type": "String"
 			}
 		]

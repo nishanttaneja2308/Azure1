@@ -26,6 +26,43 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "cdatetime",
+				"type": "String"
+			},
+			{
+				"name": "address",
+				"type": "String"
+			},
+			{
+				"name": "district",
+				"type": "String"
+			},
+			{
+				"name": "beat",
+				"type": "String"
+			},
+			{
+				"name": "grid",
+				"type": "String"
+			},
+			{
+				"name": "crimedescr",
+				"type": "String"
+			},
+			{
+				"name": "ucr_ncic_code",
+				"type": "String"
+			},
+			{
+				"name": "latitude",
+				"type": "String"
+			},
+			{
+				"name": "longitude",
+				"type": "String"
+			}
+		]
 	}
 }
