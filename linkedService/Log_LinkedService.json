@@ -6,7 +6,7 @@
 		"type": "AzureBlobStorage",
 		"typeProperties": {
 			"connectionString": "DefaultEndpointsProtocol=https;AccountName=azuredatalake2nishant;EndpointSuffix=core.windows.net;",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkFaVVJFLURBVEEtRkFDVE9SWS1ERVZFTE9QTUVOVF82M2E3ZTEzNC1jYzMyLTQ4NDEtYTNmNi1kNGRkYzFiMDQ3ZTAiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZTklTSEFOVERQMjAwXzczMmIwMDMzLTAzNTktNGY3Ny04YjlhLTk3MGE1NTA4MmFiMiINCn0="
 		}
 	}
 }
