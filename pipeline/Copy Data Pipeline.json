@@ -434,11 +434,15 @@
 		"parameters": {
 			"UserName": {
 				"type": "string",
-				"defaultValue": "sunildp200"
+				"defaultValue": "dblogin"
 			},
 			"Password": {
 				"type": "string",
-				"defaultValue": "Welcome2IBM"
+				"defaultValue": "IBM@1234"
+			},
+			"FileName": {
+				"type": "string",
+				"defaultValue": "SacramentocrimeJanuary2006.csv"
 			}
 		},
 		"annotations": []
