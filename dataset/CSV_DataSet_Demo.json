@@ -15,6 +15,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(dataset().FileName,'_',utcnow())",
+					"type": "Expression"
+				},
 				"fileSystem": "demo"
 			},
 			"columnDelimiter": ",",
