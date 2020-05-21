@@ -53,7 +53,13 @@
 				"outputs": [
 					{
 						"referenceName": "Archival_Path",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
