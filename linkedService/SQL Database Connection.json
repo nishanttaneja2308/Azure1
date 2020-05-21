@@ -13,7 +13,7 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ibmdatafactory.database.windows.net;Initial Catalog=azuresqldatabase;User ID=\"@{linkedService().SQL User Name}\";Password=\"@{linkedService().SQL Password}\""
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ibmsqlserver.database.windows.net;Initial Catalog=ibmsqldatabase;User ID=\"@{linkedService().SQL User Name}\";Password=\"@{linkedService().SQL Password}\""
 		}
 	}
 }
