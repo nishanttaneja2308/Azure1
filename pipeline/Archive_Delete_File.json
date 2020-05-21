@@ -79,7 +79,13 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "CSV_DataSet_Demo_Demo",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							}
+						}
 					},
 					"logStorageSettings": {
 						"linkedServiceName": {
