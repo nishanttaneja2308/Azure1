@@ -52,6 +52,92 @@
 							"type": "LinkedServiceReference"
 						},
 						"path": "demo/demo"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "cdatetime",
+									"type": "String"
+								},
+								"sink": {
+									"name": "cdatetime"
+								}
+							},
+							{
+								"source": {
+									"name": "address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "address"
+								}
+							},
+							{
+								"source": {
+									"name": "district",
+									"type": "String"
+								},
+								"sink": {
+									"name": "district"
+								}
+							},
+							{
+								"source": {
+									"name": "beat",
+									"type": "String"
+								},
+								"sink": {
+									"name": "beat"
+								}
+							},
+							{
+								"source": {
+									"name": "grid",
+									"type": "String"
+								},
+								"sink": {
+									"name": "grid"
+								}
+							},
+							{
+								"source": {
+									"name": "crimedescr",
+									"type": "String"
+								},
+								"sink": {
+									"name": "crimedescr"
+								}
+							},
+							{
+								"source": {
+									"name": "ucr_ncic_code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ucr_ncic_code"
+								}
+							},
+							{
+								"source": {
+									"name": "latitude",
+									"type": "String"
+								},
+								"sink": {
+									"name": "latitude"
+								}
+							},
+							{
+								"source": {
+									"name": "longitude",
+									"type": "String"
+								},
+								"sink": {
+									"name": "longitude"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [
