@@ -2,16 +2,12 @@
 	"name": "trigger1",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
 					"referenceName": "Copy Data Pipeline",
 					"type": "PipelineReference"
-				},
-				"parameters": {
-					"UserName": "dblogin",
-					"Password": "IBM@1234"
 				}
 			}
 		],
