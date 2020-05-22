@@ -210,7 +210,8 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Series_reference"
+									"name": "PartitionKey",
+									"type": "String"
 								}
 							},
 							{
@@ -219,7 +220,8 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Period"
+									"name": "RowKey",
+									"type": "String"
 								}
 							},
 							{
@@ -228,7 +230,8 @@
 									"type": "DateTimeOffset"
 								},
 								"sink": {
-									"name": "Data_value"
+									"name": "Timestamp",
+									"type": "DateTimeOffset"
 								}
 							},
 							{
@@ -237,27 +240,8 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "STATUS"
-								}
-							},
-							{
-								"sink": {
-									"name": "UNITS"
-								}
-							},
-							{
-								"sink": {
-									"name": "Subject"
-								}
-							},
-							{
-								"sink": {
-									"name": "Group"
-								}
-							},
-							{
-								"sink": {
-									"name": "Series_title_1"
+									"name": "Email",
+									"type": "String"
 								}
 							}
 						]
