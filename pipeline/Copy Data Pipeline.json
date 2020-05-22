@@ -200,7 +200,68 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "PartitionKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Series_reference"
+								}
+							},
+							{
+								"source": {
+									"name": "RowKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Period"
+								}
+							},
+							{
+								"source": {
+									"name": "Timestamp",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "Data_value"
+								}
+							},
+							{
+								"source": {
+									"name": "Email",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STATUS"
+								}
+							},
+							{
+								"sink": {
+									"name": "UNITS"
+								}
+							},
+							{
+								"sink": {
+									"name": "Subject"
+								}
+							},
+							{
+								"sink": {
+									"name": "Group"
+								}
+							},
+							{
+								"sink": {
+									"name": "Series_title_1"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
