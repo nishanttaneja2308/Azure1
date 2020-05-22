@@ -3,25 +3,7 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SQL Database Connection",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"SQL User Name": {
-					"value": "@dataset().UserName",
-					"type": "Expression"
-				},
-				"SQL Password": {
-					"value": "@dataset().Password",
-					"type": "Expression"
-				}
-			}
-		},
-		"parameters": {
-			"UserName": {
-				"type": "string"
-			},
-			"Password": {
-				"type": "string"
-			}
+			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",

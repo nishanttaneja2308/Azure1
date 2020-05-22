@@ -319,17 +319,7 @@
 					},
 					"dataset": {
 						"referenceName": "Azure_SqlTable",
-						"type": "DatasetReference",
-						"parameters": {
-							"UserName": {
-								"value": "@pipeline().parameters.UserName",
-								"type": "Expression"
-							},
-							"Password": {
-								"value": "@pipeline().parameters.Password",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					}
 				}
 			},
@@ -490,14 +480,6 @@
 			}
 		],
 		"parameters": {
-			"UserName": {
-				"type": "string",
-				"defaultValue": "dblogin"
-			},
-			"Password": {
-				"type": "string",
-				"defaultValue": "IBM@1234"
-			},
 			"FileName": {
 				"type": "string",
 				"defaultValue": "SacramentocrimeJanuary2006.csv"
