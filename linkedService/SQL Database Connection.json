@@ -1,19 +1,18 @@
 {
 	"name": "SQL Database Connection",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"parameters": {
-			"SQL User Name": {
-				"type": "string"
-			},
-			"SQL Password": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ibmsqlserver.database.windows.net;Initial Catalog=ibmsqldatabase;User ID=\"@{linkedService().SQL User Name}\";Password=\"@{linkedService().SQL Password}\""
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQLServerDetails"
+			}
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
