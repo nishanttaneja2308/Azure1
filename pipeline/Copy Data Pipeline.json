@@ -338,43 +338,39 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[p_process]",
+					"storedProcedureName": "[dbo].[USP_PROCESS]",
 					"storedProcedureParameters": {
-						"cdatafactoryname": {
-							"value": null,
+						"ERROR_MESSAGE": {
+							"value": {
+								"value": "activity('Copy_data).Error.Message",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
-						"cdtend": {
+						"LAST_UPDATED_BY": {
 							"value": {
 								"value": "@utcnow()",
 								"type": "Expression"
 							},
-							"type": "DateTime"
-						},
-						"cdtstart": {
-							"value": null,
-							"type": "DateTime"
-						},
-						"cerror": {
-							"value": {
-								"value": "@activity('Copy_data').Error.Message",
-								"type": "Expression"
-							},
 							"type": "String"
 						},
-						"ckprocess": {
+						"LOG_TABLE_NAME": {
+							"value": null,
+							"type": "String"
+						},
+						"PROCESS_ID": {
 							"value": {
 								"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
 								"type": "Expression"
 							},
 							"type": "Int32"
 						},
-						"cpipelinename": {
+						"SP_NAME": {
 							"value": null,
 							"type": "String"
 						},
-						"cstatus": {
-							"value": "E",
+						"STATUS": {
+							"value": "F",
 							"type": "String"
 						}
 					}
