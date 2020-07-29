@@ -275,44 +275,39 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[p_process]",
+						"sqlReaderStoredProcedureName": "USP_PROCESS",
 						"storedProcedureParameters": {
-							"cdatafactoryname": {
+							"ERROR_MESSAGE": {
 								"type": "String",
-								"value": {
-									"value": "@pipeline().DataFactory",
-									"type": "Expression"
-								}
-							},
-							"cdtend": {
-								"type": "DateTime",
 								"value": null
 							},
-							"cdtstart": {
-								"type": "DateTime",
+							"LAST_UPDATED_BY": {
+								"type": "String",
 								"value": {
 									"value": "@utcnow()",
 									"type": "Expression"
 								}
 							},
-							"cerror": {
-								"type": "String",
-								"value": null
-							},
-							"ckprocess": {
-								"type": "Int32",
-								"value": null
-							},
-							"cpipelinename": {
+							"LOG_TABLE_NAME": {
 								"type": "String",
 								"value": {
 									"value": "@pipeline().Pipeline",
 									"type": "Expression"
 								}
 							},
-							"cstatus": {
+							"PROCESS_ID": {
+								"type": "Int32",
+								"value": null
+							},
+							"SP_NAME": {
 								"type": "String",
-								"value": "R"
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							"STATUS": {
+								"type": "String"
 							}
 						},
 						"queryTimeout": "02:00:00"
@@ -386,17 +381,7 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"SQL User Name": {
-							"value": "@pipeline().parameters.UserName",
-							"type": "Expression"
-						},
-						"SQL Password": {
-							"value": "@pipeline().parameters.Password",
-							"type": "Expression"
-						}
-					}
+					"type": "LinkedServiceReference"
 				}
 			},
 			{
@@ -465,17 +450,7 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"SQL User Name": {
-							"value": "@pipeline().parameters.UserName",
-							"type": "Expression"
-						},
-						"SQL Password": {
-							"value": "@pipeline().parameters.Password",
-							"type": "Expression"
-						}
-					}
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
