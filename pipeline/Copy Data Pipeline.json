@@ -307,7 +307,8 @@
 								}
 							},
 							"STATUS": {
-								"type": "String"
+								"type": "String",
+								"value": "R"
 							}
 						},
 						"queryTimeout": "02:00:00"
