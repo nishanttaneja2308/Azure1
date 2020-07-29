@@ -457,7 +457,7 @@
 		"parameters": {
 			"FileName": {
 				"type": "string",
-				"defaultValue": "SacramentocrimeJanuary2006.csv"
+				"defaultValue": "Jan2020"
 			}
 		},
 		"annotations": []
