@@ -2,13 +2,23 @@
 	"name": "trigger1",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
-		"pipelines": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Copy Data Pipeline",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"FileName": "Jan2020.csv"
+				}
+			}
+		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
-			"blobPathBeginsWith": "/demo/blobs/demo/SacramentocrimeJanuary2006.csv",
+			"blobPathBeginsWith": "/demo/blobs/demo/Jan2020.csv",
 			"ignoreEmptyBlobs": true,
-			"scope": "/subscriptions/77e3a3b2-7225-4f66-84ab-7ec3578ab18d/resourceGroups/Nishant_DP200/providers/Microsoft.Storage/storageAccounts/azuredatalake2nishant",
+			"scope": "/subscriptions/6105e34b-42af-485e-84f7-b2a4cf55c23a/resourceGroups/RG_Nishant/providers/Microsoft.Storage/storageAccounts/storageaccountnishant",
 			"events": [
 				"Microsoft.Storage.BlobCreated"
 			]
