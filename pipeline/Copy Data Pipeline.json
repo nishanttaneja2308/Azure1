@@ -360,7 +360,7 @@
 						},
 						"PROCESS_ID": {
 							"value": {
-								"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
+								"value": "@activity('Create_Process_ID').output.firstRow.K_Process_ID",
 								"type": "Expression"
 							},
 							"type": "Int32"
@@ -400,42 +400,35 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[p_process]",
+					"storedProcedureName": "[dbo].[USP_PROCESS]",
 					"storedProcedureParameters": {
-						"cdatafactoryname": {
-							"value": null,
-							"type": "String"
-						},
-						"cdtend": {
-							"value": {
-								"value": "@utcnow()",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"cdtstart": {
-							"value": null,
-							"type": "DateTime"
-						},
-						"cerror": {
+						"ERROR_MESSAGE": {
 							"value": {
 								"value": "@if(equals(activity('Copy_data1').status,'Failed'),activity('Copy_data1').Error.Message,null)",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
-						"ckprocess": {
+						"LAST_UPDATED_BY": {
+							"value": "",
+							"type": "String"
+						},
+						"LOG_TABLE_NAME": {
+							"value": null,
+							"type": "String"
+						},
+						"PROCESS_ID": {
 							"value": {
-								"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
+								"value": "activity('Create_Process_ID').output.firstRow.K_Process_ID",
 								"type": "Expression"
 							},
 							"type": "Int32"
 						},
-						"cpipelinename": {
+						"SP_NAME": {
 							"value": null,
 							"type": "String"
 						},
-						"cstatus": {
+						"STATUS": {
 							"value": {
 								"value": "@if(equals(activity('Copy_data1').status,'Failed'),'E','S')",
 								"type": "Expression"
