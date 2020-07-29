@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "@concat('Table_Storage',utcnow())",
+					"value": "@concat('Table_Storage',formatDateTime(utcnow()))",
 					"type": "Expression"
 				},
 				"fileSystem": "demo"
