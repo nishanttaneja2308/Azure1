@@ -319,7 +319,7 @@
 				}
 			},
 			{
-				"name": "Fail p_process procedure",
+				"name": "On Failure Call USP_PROCESS procedure",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
