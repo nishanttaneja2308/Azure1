@@ -457,7 +457,7 @@
 		"parameters": {
 			"FileName": {
 				"type": "string",
-				"defaultValue": "Jan2020"
+				"defaultValue": "Jan2020.csv"
 			}
 		},
 		"annotations": []
