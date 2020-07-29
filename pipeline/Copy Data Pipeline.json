@@ -374,10 +374,6 @@
 							"type": "String"
 						}
 					}
-				},
-				"linkedServiceName": {
-					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference"
 				}
 			},
 			{
@@ -436,10 +432,6 @@
 							"type": "String"
 						}
 					}
-				},
-				"linkedServiceName": {
-					"referenceName": "SQL Database Connection",
-					"type": "LinkedServiceReference"
 				}
 			}
 		],
