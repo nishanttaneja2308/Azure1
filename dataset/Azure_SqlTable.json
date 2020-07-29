@@ -1,12 +1,16 @@
 {
 	"name": "Azure_SqlTable",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL Database Connection",
+			"type": "LinkedServiceReference"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "tprocess"
+			"table": "TPROCESS"
 		}
 	}
 }
