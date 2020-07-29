@@ -361,7 +361,7 @@
 						},
 						"PROCESS_ID": {
 							"value": {
-								"value": "@activity('Create_Process_ID').output.firstRow.K_Process_ID",
+								"value": "@activity('Create_Process_ID').output.firstRow.CKProcessID",
 								"type": "Expression"
 							},
 							"type": "Int32"
@@ -375,10 +375,14 @@
 							"type": "String"
 						}
 					}
+				},
+				"linkedServiceName": {
+					"referenceName": "SQL Database Connection",
+					"type": "LinkedServiceReference"
 				}
 			},
 			{
-				"name": "Fail p_process_procedure1_copy1",
+				"name": "USP_PROCESS",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -416,7 +420,7 @@
 						},
 						"PROCESS_ID": {
 							"value": {
-								"value": "activity('Create_Process_ID').output.firstRow.K_Process_ID",
+								"value": "@activity('Create_Process_ID').output.firstRow.K_Process_ID",
 								"type": "Expression"
 							},
 							"type": "Int32"
